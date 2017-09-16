@@ -18,12 +18,32 @@ ActiveAdmin.register MagicPlayer do
   filter :dci_number, filters: [:equals]
 
   show do
-    attributes_table do
-      row :first_name
-      row :last_name
-      row :email
-      row :dci_number, label: "DCI Number"
-      row :store_credit
+    columns do
+      column do
+        attributes_table do
+          row :first_name
+          row :last_name
+          row :email
+          row :dci_number, label: "DCI Number"
+          row :store_credit
+        end
+      end
+      column do
+        panel "Store Credit Ledger" do
+          # attributes_table_for magic_player do
+          #   magic_player.credit_ledger_items.order(created_at: :desc).each do |item|
+          #     row :amount
+          #     row :created_at
+          #   end
+          # end
+          table_for magic_player.credit_ledger_items.order(created_at: :desc) do
+            column :amount do |item|
+              item.display_amount
+            end
+            column :created_at
+          end
+        end
+      end
     end
   end
 
@@ -36,5 +56,20 @@ ActiveAdmin.register MagicPlayer do
       f.input :store_credit
     end
     actions
+  end
+
+  controller do
+    def update
+      outcome = MagicPlayers::Update.run(
+        magic_player: MagicPlayer.find(params[:id]),
+        params: params[:magic_player].to_unsafe_h
+      )
+      if outcome.valid?
+        redirect_to admin_magic_player_path(outcome.result)
+      else
+        @magic_player = outcome.result
+        render :edit
+      end
+    end
   end
 end
