@@ -30,12 +30,6 @@ ActiveAdmin.register MagicPlayer do
       end
       column do
         panel "Store Credit Ledger" do
-          # attributes_table_for magic_player do
-          #   magic_player.credit_ledger_items.order(created_at: :desc).each do |item|
-          #     row :amount
-          #     row :created_at
-          #   end
-          # end
           table_for magic_player.credit_ledger_items.order(created_at: :desc) do
             column :amount do |item|
               item.display_amount
