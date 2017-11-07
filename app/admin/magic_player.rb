@@ -12,10 +12,9 @@ ActiveAdmin.register MagicPlayer do
     actions
   end
 
-  filter :first_name, filters: [:equals, :contains]
-  filter :last_name, filters: [:equals, :contains]
-  filter :email, filters: [:equals, :contains]
-  filter :dci_number, filters: [:equals]
+  filter :first_name_or_last_name_cont, as: :string, label: "Name"
+  filter :email_cont, as: :string, label: "Email"
+  filter :dci_number_eq, as: :string, label: "DCI Number"
 
   show do
     columns do

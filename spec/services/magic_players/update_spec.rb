@@ -27,6 +27,10 @@ describe MagicPlayers::Update do
   context "with increasing store credit" do
     let(:params) do
       {
+        first_name: "New First",
+        last_name: "New Last",
+        email: "new@email.com",
+        dci_number: "55555555",
         store_credit: player.store_credit + 10
       }
     end
@@ -44,6 +48,10 @@ describe MagicPlayers::Update do
   context "with decreasing store credit" do
     let(:params) do
       {
+        first_name: "New First",
+        last_name: "New Last",
+        email: "new@email.com",
+        dci_number: "55555555",
         store_credit: player.store_credit - 10
       }
     end
@@ -61,6 +69,10 @@ describe MagicPlayers::Update do
   context "with an invalid credit change" do
     let(:params) do
       {
+        first_name: "New First",
+        last_name: "New Last",
+        email: "new@email.com",
+        dci_number: "55555555",
         store_credit: player.store_credit - 2*(player.store_credit)
       }
     end
